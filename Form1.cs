@@ -6,16 +6,17 @@ namespace SimpleCalculator
 {
     public partial class Form1 : Form
     {
-        int n1 = 0;
-        int n2 = 0;
-        string op = "";
+        int n1 = 0; // 숫자
+        int n2 = 0; // 숫자
+        string op = ""; // 연산자
 
         public Form1()
         {
             InitializeComponent();
         }
 
-        // ---------------- 숫자 버튼 ----------------
+        // ---------------- 숫자 버튼 ---------------- 
+        // 코드를 통합하여 보기 쉽게 만듦
         private void Num0_BT_Click(object sender, EventArgs e) => AddNumber(sender);
         private void Num1_BT_Click(object sender, EventArgs e) => AddNumber(sender);
         private void Num2_BT_Click(object sender, EventArgs e) => AddNumber(sender);
