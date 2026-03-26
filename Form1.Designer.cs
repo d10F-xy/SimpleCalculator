@@ -69,6 +69,7 @@
             // 
             // CE_BT
             // 
+            CE_BT.Font = new Font("맑은 고딕", 9F, FontStyle.Bold, GraphicsUnit.Point, 129);
             CE_BT.Location = new Point(36, 234);
             CE_BT.Name = "CE_BT";
             CE_BT.Size = new Size(75, 38);
@@ -79,6 +80,7 @@
             // 
             // C_BT
             // 
+            C_BT.Font = new Font("맑은 고딕", 9F, FontStyle.Bold);
             C_BT.Location = new Point(117, 234);
             C_BT.Name = "C_BT";
             C_BT.Size = new Size(75, 38);
@@ -89,6 +91,7 @@
             // 
             // Del_BT
             // 
+            Del_BT.Font = new Font("맑은 고딕", 9F, FontStyle.Bold);
             Del_BT.Location = new Point(198, 234);
             Del_BT.Name = "Del_BT";
             Del_BT.Size = new Size(75, 38);
@@ -99,6 +102,8 @@
             // 
             // Div_BT
             // 
+            Div_BT.Font = new Font("맑은 고딕", 9F, FontStyle.Bold, GraphicsUnit.Point, 129);
+            Div_BT.ForeColor = Color.Red;
             Div_BT.Location = new Point(279, 234);
             Div_BT.Name = "Div_BT";
             Div_BT.Size = new Size(75, 38);
@@ -109,6 +114,8 @@
             // 
             // Mul_BT
             // 
+            Mul_BT.Font = new Font("맑은 고딕", 9F, FontStyle.Bold);
+            Mul_BT.ForeColor = Color.Red;
             Mul_BT.Location = new Point(279, 278);
             Mul_BT.Name = "Mul_BT";
             Mul_BT.Size = new Size(75, 38);
@@ -149,6 +156,8 @@
             // 
             // Minus_BT
             // 
+            Minus_BT.Font = new Font("맑은 고딕", 9F, FontStyle.Bold);
+            Minus_BT.ForeColor = Color.Red;
             Minus_BT.Location = new Point(279, 322);
             Minus_BT.Name = "Minus_BT";
             Minus_BT.Size = new Size(75, 38);
@@ -189,6 +198,8 @@
             // 
             // Plus_BT
             // 
+            Plus_BT.Font = new Font("맑은 고딕", 9F, FontStyle.Bold);
+            Plus_BT.ForeColor = Color.Red;
             Plus_BT.Location = new Point(279, 366);
             Plus_BT.Name = "Plus_BT";
             Plus_BT.Size = new Size(75, 38);
@@ -229,6 +240,7 @@
             // 
             // Equal_BT
             // 
+            Equal_BT.Font = new Font("맑은 고딕", 9F, FontStyle.Bold);
             Equal_BT.Location = new Point(279, 410);
             Equal_BT.Name = "Equal_BT";
             Equal_BT.Size = new Size(75, 38);
@@ -285,38 +297,42 @@
             // 
             // Bin_BT
             // 
+            Bin_BT.BackColor = Color.Yellow;
             Bin_BT.Location = new Point(117, 205);
             Bin_BT.Name = "Bin_BT";
             Bin_BT.Size = new Size(75, 23);
             Bin_BT.TabIndex = 23;
             Bin_BT.Text = "2진수";
-            Bin_BT.UseVisualStyleBackColor = true;
+            Bin_BT.UseVisualStyleBackColor = false;
             Bin_BT.Click += Bin_BT_Click;
             // 
             // Oct_BT
             // 
+            Oct_BT.BackColor = Color.FromArgb(128, 128, 255);
             Oct_BT.Location = new Point(198, 205);
             Oct_BT.Name = "Oct_BT";
             Oct_BT.Size = new Size(75, 23);
             Oct_BT.TabIndex = 24;
             Oct_BT.Text = "8진수";
-            Oct_BT.UseVisualStyleBackColor = true;
+            Oct_BT.UseVisualStyleBackColor = false;
             Oct_BT.Click += Oct_BT_Click;
             // 
             // Hex_BT
             // 
+            Hex_BT.BackColor = Color.FromArgb(128, 255, 128);
             Hex_BT.Location = new Point(279, 205);
             Hex_BT.Name = "Hex_BT";
             Hex_BT.Size = new Size(75, 23);
             Hex_BT.TabIndex = 25;
             Hex_BT.Text = "16진수";
-            Hex_BT.UseVisualStyleBackColor = true;
+            Hex_BT.UseVisualStyleBackColor = false;
             Hex_BT.Click += Hex_BT_Click;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.Teal;
             ClientSize = new Size(386, 460);
             Controls.Add(Hex_BT);
             Controls.Add(Oct_BT);
