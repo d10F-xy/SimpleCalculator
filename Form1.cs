@@ -158,7 +158,7 @@ namespace SimpleCalculator
             // InputBox에 있는 숫자를 8진수로 변환
             if (int.TryParse(InputBox.Text, out int value))
             {
-                string octal = Convert.ToString(value, 8); // 8진수 변환
+                string octal = Convert.ToString(value, 8); // 8진수로 변환
                 InputBox.Text = InputBox.Text + " → " + octal; // InputBox에 표시
                 OutputBox.Text = octal; // OutputBox에도 표시
             }
