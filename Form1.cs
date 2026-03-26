@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -6,17 +7,12 @@ namespace SimpleCalculator
 {
     public partial class Form1 : Form
     {
-        int n1 = 0; // 숫자
-        int n2 = 0; // 숫자
-        string op = ""; // 연산자
-
         public Form1()
         {
             InitializeComponent();
         }
 
-        // ---------------- 숫자 버튼 ---------------- 
-        // 코드를 통합하여 보기 쉽게 만듦
+        // ---------------- 숫자 버튼 ----------------
         private void Num0_BT_Click(object sender, EventArgs e) => AddNumber(sender);
         private void Num1_BT_Click(object sender, EventArgs e) => AddNumber(sender);
         private void Num2_BT_Click(object sender, EventArgs e) => AddNumber(sender);
@@ -35,117 +31,82 @@ namespace SimpleCalculator
         }
 
         // ---------------- 연산자 버튼 ----------------
-        private void Plus_BT_Click(object sender, EventArgs e) => SetOperator("+"); // 더하기
-        private void Minus_BT_Click(object sender, EventArgs e) => SetOperator("-"); // 빼기
-        private void Mul_BT_Click(object sender, EventArgs e) => SetOperator("x"); // 곱하기
-        private void Div_BT_Click(object sender, EventArgs e) => SetOperator("÷"); // 나눗셈
+        private void Plus_BT_Click(object sender, EventArgs e) => InputBox.Text += " + ";
+        private void Minus_BT_Click(object sender, EventArgs e) => InputBox.Text += " - ";
+        private void Mul_BT_Click(object sender, EventArgs e) => InputBox.Text += " x ";
+        private void Div_BT_Click(object sender, EventArgs e) => InputBox.Text += " ÷ ";
 
-        private void SetOperator(string operatorSymbol)
-        {
-            string[] parts = InputBox.Text.Split(' ');
-            if (!int.TryParse(parts[0], out n1))
-            {
-                MessageBox.Show("먼저 숫자를 입력하세요.");
-                return;
-            }
+        // ---------------- 괄호 ----------------
+        private void ParentLeft_BT_Click(object sender, EventArgs e) => InputBox.Text += "(";
+        private void ParentRight_BT_Click(object sender, EventArgs e) => InputBox.Text += ")";
 
-            op = operatorSymbol;
-
-            if (parts.Length == 1)
-                InputBox.Text += " " + operatorSymbol + " ";
-        }
-
-        // ---------------- 버튼 ----------------
+        // ---------------- = ----------------
         private void Equal_BT_Click(object sender, EventArgs e)
         {
-            string[] parts = InputBox.Text.Split(' ');
-            if (parts.Length < 3 || !int.TryParse(parts[2], out n2))
+            try
             {
-                MessageBox.Show("계산할 숫자를 입력하세요.");
-                return;
-            }
+                string expr = InputBox.Text
+                    .Replace(" ", "")
+                    .Replace("x", "*")
+                    .Replace("÷", "/");
 
-            int result = 0;
-            switch (op)
+                double result = EvaluateExpression(expr);
+
+                InputBox.Text += " = " + result;
+                OutputBox.Text = result.ToString();
+            }
+            catch (Exception ex)
             {
-                case "+":
-                    result = n1 + n2;
-                    break;
-                case "-":
-                    result = n1 - n2;
-                    break;
-                case "x":
-                    result = n1 * n2;
-                    break;
-                case "÷":
-                    if (n2 == 0)
-                    {
-                        MessageBox.Show("0으로 나눌 수 없습니다.");
-                        return;
-                    }
-                    result = n1 / n2;
-                    break;
-                default:
-                    MessageBox.Show("연산자를 선택하세요.");
-                    return;
+                MessageBox.Show("계산 오류: " + ex.Message);
             }
-
-            // 계산 결과를 InputBox와 OutputBox 모두에 표시
-            InputBox.Text += " = " + result;
-            OutputBox.Text = result.ToString();
         }
 
-        // ---------------- 초기화 C ----------------
+        // ---------------- 초기화 ----------------
         private void C_BT_Click(object sender, EventArgs e)
         {
             InputBox.Clear();
             OutputBox.Clear();
-            n1 = n2 = 0;
-            op = "";
         }
 
-        // ---------------- CE 버튼 ----------------
         private void CE_BT_Click(object sender, EventArgs e)
         {
-            // 공백을 기준으로 마지막 요소 제거
             string[] parts = InputBox.Text.Split(' ');
-
             if (parts.Length > 0)
-            {
-                // 마지막 요소만 지우고 나머지는 그대로 유지
                 InputBox.Text = string.Join(" ", parts.Take(parts.Length - 1));
-            }
         }
 
-        // ---------------- DEL 버튼 ----------------
         private void Del_BT_Click(object sender, EventArgs e)
         {
             if (InputBox.Text.Length > 0)
                 InputBox.Text = InputBox.Text.Substring(0, InputBox.Text.Length - 1);
         }
 
-        // ---------------- ± 버튼 ----------------
+        // ---------------- ± ----------------
         private void PsM_BT_Click(object sender, EventArgs e)
         {
-            if (int.TryParse(InputBox.Text, out int value))
+            if (double.TryParse(InputBox.Text, out double value))
                 InputBox.Text = (-value).ToString();
         }
 
-        // ---------------- . 버튼 ----------------
+        // ---------------- 소수점 ----------------
         private void Point_BT_Click(object sender, EventArgs e)
         {
-            if (!InputBox.Text.Contains("."))
-                InputBox.Text += ".";
+            InputBox.Text += ".";
         }
 
-        private void Bin_BT_Click(object sender, EventArgs e)
+        // ---------------- 진법 변환 ----------------
+        private void Bin_BT_Click(object sender, EventArgs e) => ConvertBase(2);
+        private void Oct_BT_Click(object sender, EventArgs e) => ConvertBase(8);
+        private void Hex_BT_Click(object sender, EventArgs e) => ConvertBase(16);
+
+        private void ConvertBase(int radix)
         {
-            // OutputBox에 있는 결과를 2진수로 변환
-            if (int.TryParse(InputBox.Text, out int value))
+            if (double.TryParse(OutputBox.Text, out double value))
             {
-                string binary = Convert.ToString(value, 2); // 2진수 변환
-                InputBox.Text = InputBox.Text + " → " + binary; // InputBox에 표시
-                OutputBox.Text = binary; // OutputBox에도 표시
+                int intValue = (int)value;
+                string converted = Convert.ToString(intValue, radix).ToUpper();
+                InputBox.Text += " → " + converted;
+                OutputBox.Text = converted;
             }
             else
             {
@@ -153,34 +114,131 @@ namespace SimpleCalculator
             }
         }
 
-        private void Oct_BT_Click(object sender, EventArgs e)
+        // ---------------- 계산 엔진 ----------------
+        private double EvaluateExpression(string expr)
         {
-            // InputBox에 있는 숫자를 8진수로 변환
-            if (int.TryParse(InputBox.Text, out int value))
-            {
-                string octal = Convert.ToString(value, 8); // 8진수로 변환
-                InputBox.Text = InputBox.Text + " → " + octal; // InputBox에 표시
-                OutputBox.Text = octal; // OutputBox에도 표시
-            }
-            else
-            {
-                MessageBox.Show("변환할 숫자가 없습니다.");
-            }
+            List<string> tokens = Tokenize(expr);
+            List<string> postfix = InfixToPostfix(tokens);
+            return EvaluatePostfix(postfix);
         }
 
-        private void Hex_BT_Click(object sender, EventArgs e)
+        // 🔥 토큰화 (암시적 곱셈 포함)
+        private List<string> Tokenize(string expr)
         {
-            // InputBox에 있는 숫자를 16진수로 변환
-            if (int.TryParse(InputBox.Text, out int value))
+            List<string> tokens = new List<string>();
+            string number = "";
+            char prevChar = '\0';
+
+            foreach (char c in expr)
             {
-                string hex = Convert.ToString(value, 16).ToUpper(); // 16진수 변환, 대문자로 표시
-                InputBox.Text = InputBox.Text + " → " + hex; // InputBox에 표시
-                OutputBox.Text = hex; // OutputBox에도 표시
+                if (char.IsDigit(c) || c == '.')
+                {
+                    number += c;
+                }
+                else
+                {
+                    if (number != "")
+                    {
+                        tokens.Add(number);
+                        number = "";
+                    }
+
+                    // 숫자 뒤에 '(' → 곱셈
+                    if (c == '(' && (char.IsDigit(prevChar) || prevChar == ')'))
+                    {
+                        tokens.Add("*");
+                    }
+
+                    tokens.Add(c.ToString());
+                }
+
+                prevChar = c;
             }
-            else
+
+            if (number != "")
+                tokens.Add(number);
+
+            return tokens;
+        }
+
+        // 🔥 중위 → 후위 변환
+        private List<string> InfixToPostfix(List<string> tokens)
+        {
+            List<string> output = new List<string>();
+            Stack<string> stack = new Stack<string>();
+
+            Dictionary<string, int> precedence = new Dictionary<string, int>
             {
-                MessageBox.Show("변환할 숫자가 없습니다.");
+                { "+", 1 }, { "-", 1 }, { "*", 2 }, { "/", 2 }
+            };
+
+            foreach (var token in tokens)
+            {
+                if (double.TryParse(token, out _))
+                {
+                    output.Add(token);
+                }
+                else if (token == "(")
+                {
+                    stack.Push(token);
+                }
+                else if (token == ")")
+                {
+                    while (stack.Count > 0 && stack.Peek() != "(")
+                        output.Add(stack.Pop());
+
+                    if (stack.Count > 0) stack.Pop();
+                }
+                else
+                {
+                    while (stack.Count > 0 && stack.Peek() != "(" &&
+                           precedence.ContainsKey(stack.Peek()) &&
+                           precedence.ContainsKey(token) &&
+                           precedence[stack.Peek()] >= precedence[token])
+                    {
+                        output.Add(stack.Pop());
+                    }
+
+                    stack.Push(token);
+                }
             }
+
+            while (stack.Count > 0)
+                output.Add(stack.Pop());
+
+            return output;
+        }
+
+        // 🔥 후위 계산
+        private double EvaluatePostfix(List<string> postfix)
+        {
+            Stack<double> stack = new Stack<double>();
+
+            foreach (var token in postfix)
+            {
+                if (double.TryParse(token, out double num))
+                {
+                    stack.Push(num);
+                }
+                else
+                {
+                    double b = stack.Pop();
+                    double a = stack.Pop();
+
+                    switch (token)
+                    {
+                        case "+": stack.Push(a + b); break;
+                        case "-": stack.Push(a - b); break;
+                        case "*": stack.Push(a * b); break;
+                        case "/":
+                            if (b == 0) throw new DivideByZeroException();
+                            stack.Push(a / b);
+                            break;
+                    }
+                }
+            }
+
+            return stack.Pop();
         }
     }
 }

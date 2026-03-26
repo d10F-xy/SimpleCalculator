@@ -54,6 +54,8 @@
             Bin_BT = new Button();
             Oct_BT = new Button();
             Hex_BT = new Button();
+            ParentLeft_BT = new Button();
+            ParentRight_BT = new Button();
             SuspendLayout();
             // 
             // Title
@@ -328,12 +330,36 @@
             Hex_BT.UseVisualStyleBackColor = false;
             Hex_BT.Click += Hex_BT_Click;
             // 
+            // ParentLeft_BT
+            // 
+            ParentLeft_BT.BackColor = SystemColors.Window;
+            ParentLeft_BT.Location = new Point(36, 205);
+            ParentLeft_BT.Name = "ParentLeft_BT";
+            ParentLeft_BT.Size = new Size(38, 23);
+            ParentLeft_BT.TabIndex = 26;
+            ParentLeft_BT.Text = "( ";
+            ParentLeft_BT.UseVisualStyleBackColor = false;
+            ParentLeft_BT.Click += ParentLeft_BT_Click;
+            // 
+            // ParentRight_BT
+            // 
+            ParentRight_BT.BackColor = SystemColors.Window;
+            ParentRight_BT.Location = new Point(72, 205);
+            ParentRight_BT.Name = "ParentRight_BT";
+            ParentRight_BT.Size = new Size(39, 23);
+            ParentRight_BT.TabIndex = 27;
+            ParentRight_BT.Text = ")";
+            ParentRight_BT.UseVisualStyleBackColor = false;
+            ParentRight_BT.Click += ParentRight_BT_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Teal;
             ClientSize = new Size(386, 460);
+            Controls.Add(ParentRight_BT);
+            Controls.Add(ParentLeft_BT);
             Controls.Add(Hex_BT);
             Controls.Add(Oct_BT);
             Controls.Add(Bin_BT);
@@ -394,5 +420,7 @@
         private Button Bin_BT;
         private Button Oct_BT;
         private Button Hex_BT;
+        private Button ParentLeft_BT;
+        private Button ParentRight_BT;
     }
 }
