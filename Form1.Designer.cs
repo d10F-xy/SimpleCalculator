@@ -51,6 +51,9 @@
             PsM_BT = new Button();
             InputBox = new TextBox();
             OutputBox = new TextBox();
+            Bin_BT = new Button();
+            Oct_BT = new Button();
+            Hex_BT = new Button();
             SuspendLayout();
             // 
             // Title
@@ -280,11 +283,44 @@
             OutputBox.Size = new Size(318, 43);
             OutputBox.TabIndex = 22;
             // 
+            // Bin_BT
+            // 
+            Bin_BT.Location = new Point(117, 205);
+            Bin_BT.Name = "Bin_BT";
+            Bin_BT.Size = new Size(75, 23);
+            Bin_BT.TabIndex = 23;
+            Bin_BT.Text = "2진수";
+            Bin_BT.UseVisualStyleBackColor = true;
+            Bin_BT.Click += Bin_BT_Click;
+            // 
+            // Oct_BT
+            // 
+            Oct_BT.Location = new Point(198, 205);
+            Oct_BT.Name = "Oct_BT";
+            Oct_BT.Size = new Size(75, 23);
+            Oct_BT.TabIndex = 24;
+            Oct_BT.Text = "8진수";
+            Oct_BT.UseVisualStyleBackColor = true;
+            Oct_BT.Click += Oct_BT_Click;
+            // 
+            // Hex_BT
+            // 
+            Hex_BT.Location = new Point(279, 205);
+            Hex_BT.Name = "Hex_BT";
+            Hex_BT.Size = new Size(75, 23);
+            Hex_BT.TabIndex = 25;
+            Hex_BT.Text = "16진수";
+            Hex_BT.UseVisualStyleBackColor = true;
+            Hex_BT.Click += Hex_BT_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(386, 460);
+            Controls.Add(Hex_BT);
+            Controls.Add(Oct_BT);
+            Controls.Add(Bin_BT);
             Controls.Add(OutputBox);
             Controls.Add(InputBox);
             Controls.Add(PsM_BT);
@@ -339,5 +375,8 @@
         private Button PsM_BT;
         private TextBox InputBox;
         private TextBox OutputBox;
+        private Button Bin_BT;
+        private Button Oct_BT;
+        private Button Hex_BT;
     }
 }

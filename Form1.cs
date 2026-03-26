@@ -107,7 +107,14 @@ namespace SimpleCalculator
         // ---------------- CE 버튼 ----------------
         private void CE_BT_Click(object sender, EventArgs e)
         {
-            InputBox.Clear();
+            // 공백을 기준으로 마지막 요소 제거
+            string[] parts = InputBox.Text.Split(' ');
+
+            if (parts.Length > 0)
+            {
+                // 마지막 요소만 지우고 나머지는 그대로 유지
+                InputBox.Text = string.Join(" ", parts.Take(parts.Length - 1));
+            }
         }
 
         // ---------------- DEL 버튼 ----------------
@@ -129,6 +136,51 @@ namespace SimpleCalculator
         {
             if (!InputBox.Text.Contains("."))
                 InputBox.Text += ".";
+        }
+
+        private void Bin_BT_Click(object sender, EventArgs e)
+        {
+            // OutputBox에 있는 결과를 2진수로 변환
+            if (int.TryParse(InputBox.Text, out int value))
+            {
+                string binary = Convert.ToString(value, 2); // 2진수 변환
+                InputBox.Text = InputBox.Text + " → " + binary; // InputBox에 표시
+                OutputBox.Text = binary; // OutputBox에도 표시
+            }
+            else
+            {
+                MessageBox.Show("변환할 숫자가 없습니다.");
+            }
+        }
+
+        private void Oct_BT_Click(object sender, EventArgs e)
+        {
+            // InputBox에 있는 숫자를 8진수로 변환
+            if (int.TryParse(InputBox.Text, out int value))
+            {
+                string octal = Convert.ToString(value, 8); // 8진수 변환
+                InputBox.Text = InputBox.Text + " → " + octal; // InputBox에 표시
+                OutputBox.Text = octal; // OutputBox에도 표시
+            }
+            else
+            {
+                MessageBox.Show("변환할 숫자가 없습니다.");
+            }
+        }
+
+        private void Hex_BT_Click(object sender, EventArgs e)
+        {
+            // InputBox에 있는 숫자를 16진수로 변환
+            if (int.TryParse(InputBox.Text, out int value))
+            {
+                string hex = Convert.ToString(value, 16).ToUpper(); // 16진수 변환, 대문자로 표시
+                InputBox.Text = InputBox.Text + " → " + hex; // InputBox에 표시
+                OutputBox.Text = hex; // OutputBox에도 표시
+            }
+            else
+            {
+                MessageBox.Show("변환할 숫자가 없습니다.");
+            }
         }
     }
 }
