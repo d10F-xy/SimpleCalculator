@@ -34,10 +34,10 @@ namespace SimpleCalculator
         }
 
         // ---------------- 연산자 버튼 ----------------
-        private void Plus_BT_Click(object sender, EventArgs e) => SetOperator("+");
-        private void Minus_BT_Click(object sender, EventArgs e) => SetOperator("-");
-        private void Mul_BT_Click(object sender, EventArgs e) => SetOperator("x");
-        private void Div_BT_Click(object sender, EventArgs e) => SetOperator("÷");
+        private void Plus_BT_Click(object sender, EventArgs e) => SetOperator("+"); // 더하기
+        private void Minus_BT_Click(object sender, EventArgs e) => SetOperator("-"); // 빼기
+        private void Mul_BT_Click(object sender, EventArgs e) => SetOperator("x"); // 곱하기
+        private void Div_BT_Click(object sender, EventArgs e) => SetOperator("÷"); // 나눗셈
 
         private void SetOperator(string operatorSymbol)
         {
@@ -54,7 +54,7 @@ namespace SimpleCalculator
                 InputBox.Text += " " + operatorSymbol + " ";
         }
 
-        // ---------------- = 버튼 ----------------
+        // ---------------- 버튼 ----------------
         private void Equal_BT_Click(object sender, EventArgs e)
         {
             string[] parts = InputBox.Text.Split(' ');
